@@ -17,10 +17,15 @@
 package protect.babymonitor;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+
 import android.app.Activity;
 import android.content.Context;
+import android.media.AudioFormat;
+import android.media.AudioRecord;
+import android.media.MediaRecorder;
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
 import android.os.Bundle;
@@ -51,7 +56,29 @@ public class MonitorActivity extends Activity
                 statusText.setText("Streaming...");
             }
         });
+
+        int frequency = 11025;
+        int channelConfiguration = AudioFormat.CHANNEL_IN_MONO;
+        int audioEncoding = AudioFormat.ENCODING_PCM_16BIT;
+
+        int bufferSize = AudioRecord.getMinBufferSize(frequency, channelConfiguration, audioEncoding);
+        AudioRecord audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC,
+                frequency, channelConfiguration,
+                audioEncoding, bufferSize);
+
+        byte[] buffer = new byte[bufferSize*2];
+        audioRecord.startRecording();
+
+        OutputStream out = socket.getOutputStream();
+
+        while (socket.isConnected() && Thread.currentThread().isInterrupted() == false)
+        {
+            int read = audioRecord.read(buffer, 0, bufferSize);
+            out.write(buffer, 0, read);
+        }
+
         socket.close();
+        audioRecord.stop();
     }
 
     @Override
