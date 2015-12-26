@@ -18,6 +18,7 @@ package protect.babymonitor;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
 import android.os.Bundle;
@@ -118,6 +119,21 @@ public class DiscoverActivity extends Activity
                                     serviceText.setText(serviceInfo.getServiceName());
                                     row.addView(serviceText);
                                     serviceText.setTextSize(20);
+
+                                    serviceText.setOnClickListener(new View.OnClickListener()
+                                    {
+                                        @Override
+                                        public void onClick(View v)
+                                        {
+                                            Intent i = new Intent(getApplicationContext(), ListenActivity.class);
+                                            Bundle b = new Bundle();
+                                            b.putString("address", serviceInfo.getHost().getHostAddress());
+                                            b.putInt("port", serviceInfo.getPort());
+                                            b.putString("name", serviceInfo.getServiceName());
+                                            i.putExtras(b);
+                                            startActivity(i);
+                                        }
+                                    });
                                 }
                             });
                         }
