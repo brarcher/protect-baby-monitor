@@ -16,8 +16,14 @@
  */
 package protect.babymonitor;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
 
 public class ListenActivity extends Activity
 {
@@ -26,6 +32,22 @@ public class ListenActivity extends Activity
     String _address;
     int _port;
     String _name;
+
+    Thread _listenThread;
+    private void streamAudio(Socket socket) throws IllegalArgumentException, IllegalStateException, IOException
+    {
+        Log.i(TAG, "Setting up stream");
+
+        InputStream is = socket.getInputStream();
+        int read = 0;
+        int bufferSize = 1024; // set this to an appropriate value.
+        while(socket.isConnected() && read != -1 && Thread.currentThread().isInterrupted() == false)
+        {
+            byte [] buffer = new byte[bufferSize*2];
+            read = is.read(buffer);
+        }
+        socket.close();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -38,11 +60,47 @@ public class ListenActivity extends Activity
         _name = b.getString("name");
 
         setContentView(R.layout.activity_listen);
+
+        _listenThread = new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                try
+                {
+                    Socket socket = new Socket(_address, _port);
+                    streamAudio(socket);
+                }
+                catch (UnknownHostException e)
+                {
+                    Log.e(TAG, "Failed to stream audio", e);
+                }
+                catch (IOException e)
+                {
+                    Log.e(TAG, "Failed to stream audio", e);
+                }
+
+                ListenActivity.this.runOnUiThread(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        final TextView statusText = (TextView) findViewById(R.id.textStatus);
+                        statusText.setText("Listening stopped");
+                    }
+                });
+            }
+        });
+
+        _listenThread.start();
     }
 
     @Override
     public void onDestroy()
     {
+        _listenThread.interrupt();
+        _listenThread = null;
+
         super.onDestroy();
     }
 }
