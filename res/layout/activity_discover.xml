@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="27dp"
-        android:text="Select a Monitor:"
+        android:text="Select a Child Device:"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TableLayout

@@ -44,7 +44,7 @@
         android:layout_alignRight="@+id/textView2"
         android:layout_below="@+id/startMonitorButton"
         android:layout_marginTop="23dp"
-        android:text="Connect to monitor" />
+        android:text="Use as Parent Device" />
 
     <Button
         android:id="@+id/startMonitorButton"
@@ -53,6 +53,6 @@
         android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="34dp"
-        android:text="Start monitor" />
+        android:text="Use as Child Device" />
 
 </RelativeLayout>
