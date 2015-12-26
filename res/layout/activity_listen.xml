@@ -10,6 +10,7 @@
     tools:context="protect.babymonitor.MonitorActivity" >
 
     <TableLayout
+        android:id="@+id/tableLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -44,7 +45,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </TableRow>
-
     </TableLayout>
+
+    <TextView
+        android:id="@+id/connectedToTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:text="Connected to:"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/connectedDeviceNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/connectedToTextView"
+        android:layout_below="@+id/connectedToTextView"
+        android:layout_marginLeft="20dp"
+        android:text=" "
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

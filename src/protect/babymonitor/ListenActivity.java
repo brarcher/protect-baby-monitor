@@ -105,6 +105,16 @@ public class ListenActivity extends Activity
 
         setContentView(R.layout.activity_listen);
 
+        ListenActivity.this.runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                final TextView statusText = (TextView) findViewById(R.id.connectedDeviceNameTextView);
+                statusText.setText(_name);
+            }
+        });
+
         _listenThread = new Thread(new Runnable()
         {
             @Override
