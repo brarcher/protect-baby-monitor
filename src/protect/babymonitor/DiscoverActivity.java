@@ -22,6 +22,10 @@ import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 public class DiscoverActivity extends Activity
 {
@@ -101,6 +105,21 @@ public class DiscoverActivity extends Activity
                         {
                             Log.e(TAG, "Resolve Succeeded. " + serviceInfo);
 
+                            DiscoverActivity.this.runOnUiThread(new Runnable()
+                            {
+                                @Override
+                                public void run()
+                                {
+                                    final TableLayout serviceTable = (TableLayout) findViewById(R.id.ServiceTable);
+                                    final TableRow row = new TableRow(DiscoverActivity.this.getApplicationContext());
+                                    serviceTable.addView(row);
+
+                                    final TextView serviceText = new TextView(DiscoverActivity.this.getApplicationContext());
+                                    serviceText.setText(serviceInfo.getServiceName());
+                                    row.addView(serviceText);
+                                    serviceText.setTextSize(20);
+                                }
+                            });
                         }
                     };
 
