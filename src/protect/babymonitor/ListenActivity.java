@@ -20,7 +20,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Arrays;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+
 import android.app.Activity;
+import android.media.AudioFormat;
+import android.media.AudioManager;
+import android.media.AudioTrack;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -38,14 +45,51 @@ public class ListenActivity extends Activity
     {
         Log.i(TAG, "Setting up stream");
 
+        int frequency = 11025;
+        int channelConfiguration = AudioFormat.CHANNEL_OUT_MONO;
+        int audioEncoding = AudioFormat.ENCODING_PCM_16BIT;
+        int bufferSize = AudioTrack.getMinBufferSize(frequency, channelConfiguration, audioEncoding);
+
+        final AudioTrack audioTrack = new AudioTrack(AudioManager.STREAM_VOICE_CALL,
+                frequency,
+                channelConfiguration,
+                audioEncoding,
+                bufferSize,
+                AudioTrack.MODE_STREAM);
+
+        final BlockingQueue<byte[]> queue = new LinkedBlockingQueue<byte[]>(1 /*max samples queued*/);
+
+        AudioPlayer audioPlayer = new AudioPlayer(audioTrack, queue);
+        Thread playThread = new Thread(audioPlayer);
+        playThread.start();
+
         InputStream is = socket.getInputStream();
         int read = 0;
-        int bufferSize = 1024; // set this to an appropriate value.
+
         while(socket.isConnected() && read != -1 && Thread.currentThread().isInterrupted() == false)
         {
             byte [] buffer = new byte[bufferSize*2];
             read = is.read(buffer);
+
+            if(read > 0)
+            {
+                if(read < buffer.length)
+                {
+                    buffer = Arrays.copyOf(buffer, read);
+                }
+
+                try
+                {
+                    queue.add(buffer);
+                }
+                catch(IllegalStateException e)
+                {
+                    Log.i(TAG, "Buffer full, dropping data");
+                }
+            }
         }
+
+        playThread.interrupt();
         socket.close();
     }
 
