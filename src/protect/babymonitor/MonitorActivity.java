@@ -18,6 +18,7 @@ package protect.babymonitor;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.Socket;
 import android.app.Activity;
 import android.content.Context;
 import android.net.nsd.NsdManager;
@@ -37,6 +38,22 @@ public class MonitorActivity extends Activity
     NsdManager.RegistrationListener _registrationListener;
 
     ServerSocket _serverSocket;
+    Thread _serviceThread;
+
+    private void serviceConnection(Socket socket) throws IOException
+    {
+        MonitorActivity.this.runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                final TextView statusText = (TextView) findViewById(R.id.textStatus);
+                statusText.setText("Streaming...");
+            }
+        });
+        socket.close();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -59,6 +76,43 @@ public class MonitorActivity extends Activity
             int localPort = _serverSocket.getLocalPort();
 
             registerService(localPort);
+
+            _serviceThread = new Thread(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    try
+                    {
+                        Socket socket = _serverSocket.accept();
+                        serviceConnection(socket);
+                    }
+                    catch (IOException e)
+                    {
+                        Log.e(TAG, "Failed when serving connection", e);
+                    }
+
+                    try
+                    {
+                        _serverSocket.close();
+                    }
+                    catch (IOException e)
+                    {
+
+                    }
+
+                    MonitorActivity.this.runOnUiThread(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            final TextView statusText = (TextView) findViewById(R.id.textStatus);
+                            statusText.setText("Stopped");
+                        }
+                    });
+                }
+            });
+            _serviceThread.start();
         }
         catch (IOException e)
         {
@@ -77,6 +131,12 @@ public class MonitorActivity extends Activity
 
             _nsdManager.unregisterService(_registrationListener);
             _registrationListener = null;
+        }
+
+        if(_serviceThread != null)
+        {
+            _serviceThread.interrupt();
+            _serviceThread = null;
         }
 
         super.onDestroy();
