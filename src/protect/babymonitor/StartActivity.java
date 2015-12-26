@@ -47,5 +47,18 @@ public class StartActivity extends Activity
                 startActivity(i);
             }
         });
+
+        final Button connectButton = (Button) findViewById(R.id.connectMonitorButton);
+        connectButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Log.i(TAG, "Starting connection activity");
+
+                Intent i = new Intent(getApplicationContext(), DiscoverActivity.class);
+                startActivity(i);
+            }
+        });
     }
 }

@@ -29,6 +29,11 @@
             android:label="@string/app_name"
             android:parentActivityName="protect.babymonitor.StartActivity"
             />
+        <activity
+            android:name="protect.babymonitor.DiscoverActivity"
+            android:label="@string/app_name"
+            android:parentActivityName="protect.babymonitor.StartActivity"
+            />
     </application>
 
 </manifest>
