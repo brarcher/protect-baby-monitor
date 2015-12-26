@@ -17,6 +17,9 @@
 package protect.babymonitor;
 
 import android.app.Activity;
+import android.content.Context;
+import android.net.nsd.NsdManager;
+import android.net.nsd.NsdServiceInfo;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -24,13 +27,21 @@ public class DiscoverActivity extends Activity
 {
     final String TAG = "BabyMonitor";
 
+    NsdManager _nsdManager;
+
+    NsdManager.DiscoveryListener _discoveryListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         Log.i(TAG, "Baby monitor start");
 
+        _nsdManager = (NsdManager)this.getSystemService(Context.NSD_SERVICE);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discover);
+
+        startServiceDiscovery("_babymonitor._tcp.");
     }
 
     @Override
@@ -38,6 +49,99 @@ public class DiscoverActivity extends Activity
     {
         Log.i(TAG, "Baby monitoring stop");
 
+        if(_discoveryListener != null)
+        {
+            Log.i(TAG, "Unregistering monitoring service");
+
+            _nsdManager.stopServiceDiscovery(_discoveryListener);
+            _discoveryListener = null;
+        }
+
         super.onDestroy();
+    }
+
+    public void startServiceDiscovery(final String serviceType)
+    {
+        final NsdManager nsdManager = (NsdManager)this.getSystemService(Context.NSD_SERVICE);
+
+        // Instantiate a new DiscoveryListener
+        _discoveryListener = new NsdManager.DiscoveryListener()
+        {
+            //  Called as soon as service discovery begins.
+            @Override
+            public void onDiscoveryStarted(String regType)
+            {
+                Log.d(TAG, "Service discovery started");
+            }
+
+            @Override
+            public void onServiceFound(NsdServiceInfo service) {
+                // A service was found!  Do something with it.
+                Log.d(TAG, "Service discovery success: " + service);
+
+                if (!service.getServiceType().equals(serviceType))
+                {
+                    // Service type is the string containing the protocol and
+                    // transport layer for this service.
+                    Log.d(TAG, "Unknown Service Type: " + service.getServiceType());
+                }
+                else if (service.getServiceName().contains("ProtectBabyMonitor"))
+                {
+                    NsdManager.ResolveListener resolver = new NsdManager.ResolveListener()
+                    {
+                        @Override
+                        public void onResolveFailed(NsdServiceInfo serviceInfo, int errorCode)
+                        {
+                            // Called when the resolve fails.  Use the error code to debug.
+                            Log.e(TAG, "Resolve failed" + errorCode);
+                        }
+
+                        @Override
+                        public void onServiceResolved(final NsdServiceInfo serviceInfo)
+                        {
+                            Log.e(TAG, "Resolve Succeeded. " + serviceInfo);
+
+                        }
+                    };
+
+                    _nsdManager.resolveService(service, resolver);
+                }
+                else
+                {
+                    Log.d(TAG, "Unknown Service name: " + service.getServiceName());
+                }
+            }
+
+            @Override
+            public void onServiceLost(NsdServiceInfo service)
+            {
+                // When the network service is no longer available.
+                // Internal bookkeeping code goes here.
+                Log.e(TAG, "service lost" + service);
+            }
+
+            @Override
+            public void onDiscoveryStopped(String serviceType)
+            {
+                Log.i(TAG, "Discovery stopped: " + serviceType);
+            }
+
+            @Override
+            public void onStartDiscoveryFailed(String serviceType, int errorCode)
+            {
+                Log.e(TAG, "Discovery failed: Error code:" + errorCode);
+                nsdManager.stopServiceDiscovery(this);
+            }
+
+            @Override
+            public void onStopDiscoveryFailed(String serviceType, int errorCode)
+            {
+                Log.e(TAG, "Discovery failed: Error code:" + errorCode);
+                nsdManager.stopServiceDiscovery(this);
+            }
+        };
+
+        nsdManager.discoverServices(
+                serviceType, NsdManager.PROTOCOL_DNS_SD, _discoveryListener);
     }
 }
