@@ -71,6 +71,9 @@ public class MonitorActivity extends Activity
 
         OutputStream out = socket.getOutputStream();
 
+        socket.setSendBufferSize(bufferSize);
+        Log.d(TAG, "Socket send buffer size: " + socket.getSendBufferSize());
+
         while (socket.isConnected() && Thread.currentThread().isInterrupted() == false)
         {
             int read = audioRecord.read(buffer, 0, bufferSize);
