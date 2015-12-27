@@ -115,8 +115,14 @@ public class DiscoverActivity extends Activity
                                     final TableRow row = new TableRow(DiscoverActivity.this.getApplicationContext());
                                     serviceTable.addView(row);
 
+                                    // If there is more than one service on the network, it will
+                                    // have a number at the end, but will appear as the following:
+                                    //   "ProtectBabyMonitor\\032(number)
+                                    // Replace \\032 with a ""
+                                    final String fixedServiceName = serviceInfo.getServiceName().replace("\\\\032", " ");
+
                                     final TextView serviceText = new TextView(DiscoverActivity.this.getApplicationContext());
-                                    serviceText.setText(serviceInfo.getServiceName());
+                                    serviceText.setText(fixedServiceName);
                                     row.addView(serviceText);
                                     serviceText.setTextSize(20);
 
@@ -129,7 +135,7 @@ public class DiscoverActivity extends Activity
                                             Bundle b = new Bundle();
                                             b.putString("address", serviceInfo.getHost().getHostAddress());
                                             b.putInt("port", serviceInfo.getPort());
-                                            b.putString("name", serviceInfo.getServiceName());
+                                            b.putString("name", fixedServiceName);
                                             i.putExtras(b);
                                             startActivity(i);
                                         }
