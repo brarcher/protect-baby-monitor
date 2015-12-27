@@ -24,6 +24,7 @@ import android.net.nsd.NsdServiceInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -121,12 +122,12 @@ public class DiscoverActivity extends Activity
                                     // Replace \\032 with a ""
                                     final String fixedServiceName = serviceInfo.getServiceName().replace("\\\\032", " ");
 
-                                    final TextView serviceText = new TextView(DiscoverActivity.this.getApplicationContext());
-                                    serviceText.setText(fixedServiceName);
-                                    row.addView(serviceText);
-                                    serviceText.setTextSize(20);
+                                    final Button serviceButton = new Button(DiscoverActivity.this.getApplicationContext());
+                                    serviceButton.setText(fixedServiceName);
+                                    row.addView(serviceButton);
+                                    serviceButton.setTextSize(15);
 
-                                    serviceText.setOnClickListener(new View.OnClickListener()
+                                    serviceButton.setOnClickListener(new View.OnClickListener()
                                     {
                                         @Override
                                         public void onClick(View v)
