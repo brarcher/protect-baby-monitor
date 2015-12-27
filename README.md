@@ -28,3 +28,9 @@ including:
 
 If there is any interest in improving this open source baby monitor, kindly submit a pull request with
 proposed changed.
+
+
+# Thanks
+
+App icon originals from [WPZOOM](http://www.wpzoom.com/wpzoom/new-freebie-wpzoom-developer-icon-set-154-free-icons)
+and formatted using [Android Asset Studio](https://romannurik.github.io/AndroidAssetStudio/index.html).
