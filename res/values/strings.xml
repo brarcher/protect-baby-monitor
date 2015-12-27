@@ -7,5 +7,12 @@
     <string name="useAsChildDevice">Use as Child Device</string>
     <string name="childDescription">Device is placed with baby, and sends audio to a paired parent device</string>
     <string name="parentDescription">Pairs with child device and plays received audio</string>
+    <string name="childDevice">Child Device</string>
+    <string name="serviceTitle">Service:</string>
+    <string name="serviceDescription">Name of the service that parent must pair to</string>
+    <string name="loading">Loading...</string>
+    <string name="stopped">Stopped</string>
+    <string name="streaming">Streaming...</string>
+    <string name="waitingForParent">Waiting for Parent...</string>
 
 </resources>
