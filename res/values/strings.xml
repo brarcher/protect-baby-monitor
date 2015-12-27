@@ -14,5 +14,7 @@
     <string name="stopped">Stopped</string>
     <string name="streaming">Streaming...</string>
     <string name="waitingForParent">Waiting for Parent...</string>
+    <string name="parentDevice">Parent Device</string>
+    <string name="selectChildDevice">Select Child Device:</string>
 
 </resources>
