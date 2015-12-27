@@ -110,8 +110,11 @@ public class ListenActivity extends Activity
             @Override
             public void run()
             {
-                final TextView statusText = (TextView) findViewById(R.id.connectedDeviceNameTextView);
-                statusText.setText(_name);
+                final TextView connectedText = (TextView) findViewById(R.id.connectedTo);
+                connectedText.setText(_name);
+
+                final TextView statusText = (TextView) findViewById(R.id.textStatus);
+                statusText.setText(R.string.listening);
             }
         });
 
@@ -139,8 +142,11 @@ public class ListenActivity extends Activity
                     @Override
                     public void run()
                     {
+                        final TextView connectedText = (TextView) findViewById(R.id.connectedTo);
+                        connectedText.setText("");
+
                         final TextView statusText = (TextView) findViewById(R.id.textStatus);
-                        statusText.setText("Listening stopped");
+                        statusText.setText(R.string.disconnected);
                     }
                 });
             }

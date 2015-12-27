@@ -16,5 +16,9 @@
     <string name="waitingForParent">Waiting for Parent...</string>
     <string name="parentDevice">Parent Device</string>
     <string name="selectChildDevice">Select Child Device:</string>
+    <string name="status">Status:</string>
+    <string name="connectedTo">Connected To:</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="listening">Listening...</string>
 
 </resources>
