@@ -1,6 +1,8 @@
 # protect-baby-monitor
 An Open Source Baby Monitor for Android
 
+[![Build Status](https://travis-ci.org/brarcher/protect-baby-monitor.svg?branch=master)](https://travis-ci.org/brarcher/protect-baby-monitor)
+
 _Protect Baby Monitor_ allows two Android devices to act as a baby monitor. The first device,
 left in the room with the baby, will advertise itself on the network and stream audio
 to a connected client. The second device, with the parent, will connect to the monitoring
@@ -28,3 +30,9 @@ including:
 
 If there is any interest in improving this open source baby monitor, kindly submit a pull request with
 proposed changed.
+
+
+# Thanks
+
+App icon originals from [WPZOOM](http://www.wpzoom.com/wpzoom/new-freebie-wpzoom-developer-icon-set-154-free-icons)
+and formatted using [Android Asset Studio](https://romannurik.github.io/AndroidAssetStudio/index.html).

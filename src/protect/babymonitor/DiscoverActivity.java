@@ -24,6 +24,7 @@ import android.net.nsd.NsdServiceInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -115,12 +116,18 @@ public class DiscoverActivity extends Activity
                                     final TableRow row = new TableRow(DiscoverActivity.this.getApplicationContext());
                                     serviceTable.addView(row);
 
-                                    final TextView serviceText = new TextView(DiscoverActivity.this.getApplicationContext());
-                                    serviceText.setText(serviceInfo.getServiceName());
-                                    row.addView(serviceText);
-                                    serviceText.setTextSize(20);
+                                    // If there is more than one service on the network, it will
+                                    // have a number at the end, but will appear as the following:
+                                    //   "ProtectBabyMonitor\\032(number)
+                                    // Replace \\032 with a ""
+                                    final String fixedServiceName = serviceInfo.getServiceName().replace("\\\\032", " ");
 
-                                    serviceText.setOnClickListener(new View.OnClickListener()
+                                    final Button serviceButton = new Button(DiscoverActivity.this.getApplicationContext());
+                                    serviceButton.setText(fixedServiceName);
+                                    row.addView(serviceButton);
+                                    serviceButton.setTextSize(15);
+
+                                    serviceButton.setOnClickListener(new View.OnClickListener()
                                     {
                                         @Override
                                         public void onClick(View v)
@@ -129,7 +136,7 @@ public class DiscoverActivity extends Activity
                                             Bundle b = new Bundle();
                                             b.putString("address", serviceInfo.getHost().getHostAddress());
                                             b.putInt("port", serviceInfo.getPort());
-                                            b.putString("name", serviceInfo.getServiceName());
+                                            b.putString("name", fixedServiceName);
                                             i.putExtras(b);
                                             startActivity(i);
                                         }

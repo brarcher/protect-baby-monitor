@@ -3,5 +3,22 @@
 
     <string name="app_name">Protect Baby Monitor</string>
     <string name="action_settings">Settings</string>
+    <string name="useAsParentDevice">Use as Parent Device</string>
+    <string name="useAsChildDevice">Use as Child Device</string>
+    <string name="childDescription">Device is placed with baby, and sends audio to a paired parent device</string>
+    <string name="parentDescription">Pairs with child device and plays received audio</string>
+    <string name="childDevice">Child Device</string>
+    <string name="serviceTitle">Service:</string>
+    <string name="serviceDescription">Name of the service that parent must pair to</string>
+    <string name="loading">Loading...</string>
+    <string name="stopped">Stopped</string>
+    <string name="streaming">Streaming...</string>
+    <string name="waitingForParent">Waiting for Parent...</string>
+    <string name="parentDevice">Parent Device</string>
+    <string name="selectChildDevice">Select Child Device:</string>
+    <string name="status">Status:</string>
+    <string name="connectedTo">Connected To:</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="listening">Listening...</string>
 
 </resources>

@@ -53,7 +53,7 @@ public class MonitorActivity extends Activity
             public void run()
             {
                 final TextView statusText = (TextView) findViewById(R.id.textStatus);
-                statusText.setText("Streaming...");
+                statusText.setText(R.string.streaming);
             }
         });
 
@@ -93,9 +93,6 @@ public class MonitorActivity extends Activity
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monitor);
-
-        final TextView text = (TextView) findViewById(R.id.textStatus);
-        text.setText("Loading...");
 
         try
         {
@@ -137,7 +134,7 @@ public class MonitorActivity extends Activity
                         public void run()
                         {
                             final TextView statusText = (TextView) findViewById(R.id.textStatus);
-                            statusText.setText("Stopped");
+                            statusText.setText(R.string.stopped);
                         }
                     });
                 }
@@ -216,7 +213,7 @@ public class MonitorActivity extends Activity
                     public void run()
                     {
                         final TextView statusText = (TextView) findViewById(R.id.textStatus);
-                        statusText.setText("Waiting for connection...");
+                        statusText.setText(R.string.waitingForParent);
 
                         final TextView serviceText = (TextView) findViewById(R.id.textService);
                         serviceText.setText(serviceName);
