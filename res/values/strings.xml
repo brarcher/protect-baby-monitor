@@ -3,5 +3,9 @@
 
     <string name="app_name">Protect Baby Monitor</string>
     <string name="action_settings">Settings</string>
+    <string name="useAsParentDevice">Use as Parent Device</string>
+    <string name="useAsChildDevice">Use as Child Device</string>
+    <string name="childDescription">Device is placed with baby, and sends audio to a paired parent device</string>
+    <string name="parentDescription">Pairs with child device and plays received audio</string>
 
 </resources>

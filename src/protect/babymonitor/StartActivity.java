@@ -35,7 +35,7 @@ public class StartActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        final Button monitorButton = (Button) findViewById(R.id.startMonitorButton);
+        final Button monitorButton = (Button) findViewById(R.id.useChildDevice);
         monitorButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -48,7 +48,7 @@ public class StartActivity extends Activity
             }
         });
 
-        final Button connectButton = (Button) findViewById(R.id.connectMonitorButton);
+        final Button connectButton = (Button) findViewById(R.id.useParentDevice);
         connectButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
