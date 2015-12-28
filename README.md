@@ -36,3 +36,5 @@ proposed changed.
 
 App icon originals from [WPZOOM](http://www.wpzoom.com/wpzoom/new-freebie-wpzoom-developer-icon-set-154-free-icons)
 and formatted using [Android Asset Studio](https://romannurik.github.io/AndroidAssetStudio/index.html).
+
+Audio file originals from [freesound](https://freesound.org).

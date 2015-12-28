@@ -28,6 +28,7 @@ import android.app.Activity;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -141,6 +142,11 @@ public class ListenActivity extends Activity
 
                 if(Thread.currentThread().isInterrupted() == false)
                 {
+                    // If this thread has not been interrupted, likely something
+                    // bad happened with the connection to the child device. Play
+                    // an alert to notify the user that the connection has been
+                    // interrupted.
+                    playAlert();
 
                     ListenActivity.this.runOnUiThread(new Runnable()
                     {
@@ -168,5 +174,27 @@ public class ListenActivity extends Activity
         _listenThread = null;
 
         super.onDestroy();
+    }
+
+    private void playAlert()
+    {
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.upward_beep_chromatic_fifths);
+        if(mp != null)
+        {
+            Log.i(TAG, "Playing alert");
+            mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
+            {
+                @Override
+                public void onCompletion(MediaPlayer mp)
+                {
+                    mp.release();
+                }
+            });
+            mp.start();
+        }
+        else
+        {
+            Log.e(TAG, "Failed to play alert");
+        }
     }
 }
