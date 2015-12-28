@@ -201,7 +201,7 @@ public class MonitorActivity extends Activity
         return super.onOptionsItemSelected(item);
     }
 
-    public void registerService(int port)
+    private void registerService(int port)
     {
         NsdServiceInfo serviceInfo  = new NsdServiceInfo();
         serviceInfo.setServiceName("ProtectBabyMonitor");
@@ -265,7 +265,7 @@ public class MonitorActivity extends Activity
      * Uhregistered the service and assigns the listener
      * to null.
      */
-    void unregisterService()
+    private void unregisterService()
     {
         if(_registrationListener != null)
         {
