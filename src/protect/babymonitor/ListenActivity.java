@@ -139,18 +139,22 @@ public class ListenActivity extends Activity
                     Log.e(TAG, "Failed to stream audio", e);
                 }
 
-                ListenActivity.this.runOnUiThread(new Runnable()
+                if(Thread.currentThread().isInterrupted() == false)
                 {
-                    @Override
-                    public void run()
-                    {
-                        final TextView connectedText = (TextView) findViewById(R.id.connectedTo);
-                        connectedText.setText("");
 
-                        final TextView statusText = (TextView) findViewById(R.id.textStatus);
-                        statusText.setText(R.string.disconnected);
-                    }
-                });
+                    ListenActivity.this.runOnUiThread(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            final TextView connectedText = (TextView) findViewById(R.id.connectedTo);
+                            connectedText.setText("");
+
+                            final TextView statusText = (TextView) findViewById(R.id.textStatus);
+                            statusText.setText(R.string.disconnected);
+                        }
+                    });
+                }
             }
         });
 
