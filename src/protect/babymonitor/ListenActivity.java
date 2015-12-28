@@ -50,7 +50,7 @@ public class ListenActivity extends Activity
         int audioEncoding = AudioFormat.ENCODING_PCM_16BIT;
         int bufferSize = AudioTrack.getMinBufferSize(frequency, channelConfiguration, audioEncoding);
 
-        final AudioTrack audioTrack = new AudioTrack(AudioManager.STREAM_VOICE_CALL,
+        final AudioTrack audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC,
                 frequency,
                 channelConfiguration,
                 audioEncoding,
@@ -62,6 +62,8 @@ public class ListenActivity extends Activity
         AudioPlayer audioPlayer = new AudioPlayer(audioTrack, queue);
         Thread playThread = new Thread(audioPlayer);
         playThread.start();
+
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         InputStream is = socket.getInputStream();
         int read = 0;
