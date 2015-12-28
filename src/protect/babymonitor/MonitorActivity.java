@@ -42,7 +42,6 @@ public class MonitorActivity extends Activity
 
     NsdManager.RegistrationListener _registrationListener;
 
-    ServerSocket _serverSocket;
     Thread _serviceThread;
 
     private void serviceConnection(Socket socket) throws IOException
@@ -67,21 +66,26 @@ public class MonitorActivity extends Activity
                 audioEncoding, bufferSize);
 
         byte[] buffer = new byte[bufferSize*2];
-        audioRecord.startRecording();
 
-        OutputStream out = socket.getOutputStream();
-
-        socket.setSendBufferSize(bufferSize);
-        Log.d(TAG, "Socket send buffer size: " + socket.getSendBufferSize());
-
-        while (socket.isConnected() && Thread.currentThread().isInterrupted() == false)
+        try
         {
-            int read = audioRecord.read(buffer, 0, bufferSize);
-            out.write(buffer, 0, read);
-        }
+            audioRecord.startRecording();
 
-        socket.close();
-        audioRecord.stop();
+            OutputStream out = socket.getOutputStream();
+
+            socket.setSendBufferSize(bufferSize);
+            Log.d(TAG, "Socket send buffer size: " + socket.getSendBufferSize());
+
+            while (socket.isConnected() && Thread.currentThread().isInterrupted() == false)
+            {
+                int read = audioRecord.read(buffer, 0, bufferSize);
+                out.write(buffer, 0, read);
+            }
+        }
+        finally
+        {
+            audioRecord.stop();
+        }
     }
 
     @Override
@@ -94,57 +98,70 @@ public class MonitorActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monitor);
 
-        try
+        _serviceThread = new Thread(new Runnable()
         {
-            // Initialize a server socket on the next available port.
-            _serverSocket = new ServerSocket(0);
-
-            // Store the chosen port.
-            int localPort = _serverSocket.getLocalPort();
-
-            registerService(localPort);
-
-            _serviceThread = new Thread(new Runnable()
+            @Override
+            public void run()
             {
-                @Override
-                public void run()
+                while(Thread.currentThread().isInterrupted() == false)
                 {
-                    try
-                    {
-                        Socket socket = _serverSocket.accept();
-                        serviceConnection(socket);
-                    }
-                    catch (IOException e)
-                    {
-                        Log.e(TAG, "Failed when serving connection", e);
-                    }
+                    ServerSocket serverSocket = null;
 
                     try
                     {
-                        _serverSocket.close();
-                    }
-                    catch (IOException e)
-                    {
+                        // Initialize a server socket on the next available port.
+                        serverSocket = new ServerSocket(0);
 
-                    }
+                        // Store the chosen port.
+                        int localPort = serverSocket.getLocalPort();
 
-                    MonitorActivity.this.runOnUiThread(new Runnable()
-                    {
-                        @Override
-                        public void run()
+                        // Register the service so that parent devices can
+                        // locate the child device
+                        registerService(localPort);
+
+                        // Wait for a parent to find us and connect
+                        Socket socket = serverSocket.accept();
+                        Log.i(TAG, "Connection from parent device received");
+
+                        // We now have a client connection.
+                        // Unregister so no other clients will
+                        // attempt to connect
+                        serverSocket.close();
+                        serverSocket = null;
+                        unregisterService();
+
+                        try
                         {
-                            final TextView statusText = (TextView) findViewById(R.id.textStatus);
-                            statusText.setText(R.string.stopped);
+                            serviceConnection(socket);
                         }
-                    });
+                        finally
+                        {
+                            socket.close();
+                        }
+                    }
+                    catch(IOException e)
+                    {
+                        Log.e(TAG, "Connection failed", e);
+                    }
+
+                    // If an exception was thrown before the connection
+                    // could be closed, clean it up
+                    if(serverSocket != null)
+                    {
+                        try
+                        {
+                            serverSocket.close();
+                        }
+                        catch (IOException e)
+                        {
+                            Log.e(TAG, "Failed to close stray connection", e);
+                        }
+                        serverSocket = null;
+                    }
                 }
-            });
-            _serviceThread.start();
-        }
-        catch (IOException e)
-        {
-            Log.e(TAG, "Failed to create server socket", e);
-        }
+            }
+        });
+        _serviceThread.start();
     }
 
     @Override
@@ -152,13 +169,7 @@ public class MonitorActivity extends Activity
     {
         Log.i(TAG, "Baby monitor stop");
 
-        if(_registrationListener != null)
-        {
-            Log.i(TAG, "Unregistering monitoring service");
-
-            _nsdManager.unregisterService(_registrationListener);
-            _registrationListener = null;
-        }
+        unregisterService();
 
         if(_serviceThread != null)
         {
@@ -190,7 +201,7 @@ public class MonitorActivity extends Activity
         return super.onOptionsItemSelected(item);
     }
 
-    public void registerService(int port)
+    private void registerService(int port)
     {
         NsdServiceInfo serviceInfo  = new NsdServiceInfo();
         serviceInfo.setServiceName("ProtectBabyMonitor");
@@ -248,5 +259,20 @@ public class MonitorActivity extends Activity
 
         _nsdManager.registerService(
                 serviceInfo, NsdManager.PROTOCOL_DNS_SD, _registrationListener);
+    }
+
+    /**
+     * Uhregistered the service and assigns the listener
+     * to null.
+     */
+    private void unregisterService()
+    {
+        if(_registrationListener != null)
+        {
+            Log.i(TAG, "Unregistering monitoring service");
+
+            _nsdManager.unregisterService(_registrationListener);
+            _registrationListener = null;
+        }
     }
 }

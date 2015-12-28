@@ -27,7 +27,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.TextView;
 
 public class DiscoverActivity extends Activity
 {
@@ -99,13 +98,13 @@ public class DiscoverActivity extends Activity
                         public void onResolveFailed(NsdServiceInfo serviceInfo, int errorCode)
                         {
                             // Called when the resolve fails.  Use the error code to debug.
-                            Log.e(TAG, "Resolve failed" + errorCode);
+                            Log.e(TAG, "Resolve failed: error " + errorCode + " for service: " + serviceInfo);
                         }
 
                         @Override
                         public void onServiceResolved(final NsdServiceInfo serviceInfo)
                         {
-                            Log.e(TAG, "Resolve Succeeded. " + serviceInfo);
+                            Log.i(TAG, "Resolve Succeeded: " + serviceInfo);
 
                             DiscoverActivity.this.runOnUiThread(new Runnable()
                             {
@@ -159,7 +158,7 @@ public class DiscoverActivity extends Activity
             {
                 // When the network service is no longer available.
                 // Internal bookkeeping code goes here.
-                Log.e(TAG, "service lost" + service);
+                Log.e(TAG, "Service lost: " + service);
             }
 
             @Override
@@ -171,14 +170,14 @@ public class DiscoverActivity extends Activity
             @Override
             public void onStartDiscoveryFailed(String serviceType, int errorCode)
             {
-                Log.e(TAG, "Discovery failed: Error code:" + errorCode);
+                Log.e(TAG, "Discovery failed: Error code: " + errorCode);
                 nsdManager.stopServiceDiscovery(this);
             }
 
             @Override
             public void onStopDiscoveryFailed(String serviceType, int errorCode)
             {
-                Log.e(TAG, "Discovery failed: Error code:" + errorCode);
+                Log.e(TAG, "Discovery failed: Error code: " + errorCode);
                 nsdManager.stopServiceDiscovery(this);
             }
         };

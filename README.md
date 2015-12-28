@@ -15,10 +15,8 @@ The current version of _Protect Baby Monitor_ is rudimentary at best. It is capa
 of successfully advertising itself on the network, allows clients to connect,
 and streams audio. Room for improvement includes:
 
-1. Decent UI
-2. Hook into audio controls to adjust volume
-3. Robust usage of the AudioTrack API
-4. Handle dropped packets gracefully
+1. Robust usage of the AudioTrack API
+2. Handle dropped packets gracefully
 
 At the time this project was started there was no obvious open source solution for a
 baby monitor for Android. There are both free and paid options available for Android,
@@ -36,3 +34,5 @@ proposed changed.
 
 App icon originals from [WPZOOM](http://www.wpzoom.com/wpzoom/new-freebie-wpzoom-developer-icon-set-154-free-icons)
 and formatted using [Android Asset Studio](https://romannurik.github.io/AndroidAssetStudio/index.html).
+
+Audio file originals from [freesound](https://freesound.org).
