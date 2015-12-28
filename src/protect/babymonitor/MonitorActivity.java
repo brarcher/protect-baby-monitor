@@ -152,13 +152,7 @@ public class MonitorActivity extends Activity
     {
         Log.i(TAG, "Baby monitor stop");
 
-        if(_registrationListener != null)
-        {
-            Log.i(TAG, "Unregistering monitoring service");
-
-            _nsdManager.unregisterService(_registrationListener);
-            _registrationListener = null;
-        }
+        unregisterService();
 
         if(_serviceThread != null)
         {
@@ -248,5 +242,20 @@ public class MonitorActivity extends Activity
 
         _nsdManager.registerService(
                 serviceInfo, NsdManager.PROTOCOL_DNS_SD, _registrationListener);
+    }
+
+    /**
+     * Uhregistered the service and assigns the listener
+     * to null.
+     */
+    void unregisterService()
+    {
+        if(_registrationListener != null)
+        {
+            Log.i(TAG, "Unregistering monitoring service");
+
+            _nsdManager.unregisterService(_registrationListener);
+            _registrationListener = null;
+        }
     }
 }
