@@ -67,21 +67,27 @@ public class MonitorActivity extends Activity
                 audioEncoding, bufferSize);
 
         byte[] buffer = new byte[bufferSize*2];
-        audioRecord.startRecording();
 
-        OutputStream out = socket.getOutputStream();
-
-        socket.setSendBufferSize(bufferSize);
-        Log.d(TAG, "Socket send buffer size: " + socket.getSendBufferSize());
-
-        while (socket.isConnected() && Thread.currentThread().isInterrupted() == false)
+        try
         {
-            int read = audioRecord.read(buffer, 0, bufferSize);
-            out.write(buffer, 0, read);
-        }
+            audioRecord.startRecording();
 
-        socket.close();
-        audioRecord.stop();
+            OutputStream out = socket.getOutputStream();
+
+            socket.setSendBufferSize(bufferSize);
+            Log.d(TAG, "Socket send buffer size: " + socket.getSendBufferSize());
+
+            while (socket.isConnected() && Thread.currentThread().isInterrupted() == false)
+            {
+                int read = audioRecord.read(buffer, 0, bufferSize);
+                out.write(buffer, 0, read);
+            }
+        }
+        finally
+        {
+            audioRecord.stop();
+            socket.close();
+        }
     }
 
     @Override
