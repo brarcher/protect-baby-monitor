@@ -24,9 +24,10 @@ import android.net.nsd.NsdServiceInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TableLayout;
-import android.widget.TableRow;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class DiscoverActivity extends Activity
 {
@@ -68,6 +69,29 @@ public class DiscoverActivity extends Activity
     public void startServiceDiscovery(final String serviceType)
     {
         final NsdManager nsdManager = (NsdManager)this.getSystemService(Context.NSD_SERVICE);
+
+        final ListView serviceTable = (ListView) findViewById(R.id.ServiceTable);
+
+        final ArrayAdapter<ServiceInfoWrapper> availableServicesAdapter = new ArrayAdapter<ServiceInfoWrapper>(this,
+                R.layout.available_children_list);
+        serviceTable.setAdapter(availableServicesAdapter);
+
+        serviceTable.setOnItemClickListener(new OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                    int position, long id)
+            {
+                ServiceInfoWrapper info = (ServiceInfoWrapper) parent.getItemAtPosition(position);
+                Intent i = new Intent(getApplicationContext(), ListenActivity.class);
+                Bundle b = new Bundle();
+                b.putString("address", info.getAddress());
+                b.putInt("port", info.getPort());
+                b.putString("name", info.getName());
+                i.putExtras(b);
+                startActivity(i);
+            }
+        });
 
         // Instantiate a new DiscoveryListener
         _discoveryListener = new NsdManager.DiscoveryListener()
@@ -111,35 +135,7 @@ public class DiscoverActivity extends Activity
                                 @Override
                                 public void run()
                                 {
-                                    final TableLayout serviceTable = (TableLayout) findViewById(R.id.ServiceTable);
-                                    final TableRow row = new TableRow(DiscoverActivity.this.getApplicationContext());
-                                    serviceTable.addView(row);
-
-                                    // If there is more than one service on the network, it will
-                                    // have a number at the end, but will appear as the following:
-                                    //   "ProtectBabyMonitor\\032(number)
-                                    // Replace \\032 with a ""
-                                    final String fixedServiceName = serviceInfo.getServiceName().replace("\\\\032", " ");
-
-                                    final Button serviceButton = new Button(DiscoverActivity.this.getApplicationContext());
-                                    serviceButton.setText(fixedServiceName);
-                                    row.addView(serviceButton);
-                                    serviceButton.setTextSize(15);
-
-                                    serviceButton.setOnClickListener(new View.OnClickListener()
-                                    {
-                                        @Override
-                                        public void onClick(View v)
-                                        {
-                                            Intent i = new Intent(getApplicationContext(), ListenActivity.class);
-                                            Bundle b = new Bundle();
-                                            b.putString("address", serviceInfo.getHost().getHostAddress());
-                                            b.putInt("port", serviceInfo.getPort());
-                                            b.putString("name", fixedServiceName);
-                                            i.putExtras(b);
-                                            startActivity(i);
-                                        }
-                                    });
+                                    availableServicesAdapter.add(new ServiceInfoWrapper(serviceInfo));
                                 }
                             });
                         }
@@ -184,5 +180,39 @@ public class DiscoverActivity extends Activity
 
         nsdManager.discoverServices(
                 serviceType, NsdManager.PROTOCOL_DNS_SD, _discoveryListener);
+    }
+}
+
+class ServiceInfoWrapper
+{
+    private NsdServiceInfo _info;
+    public ServiceInfoWrapper(NsdServiceInfo info)
+    {
+        _info = info;
+    }
+
+    public String getAddress()
+    {
+        return _info.getHost().getHostAddress();
+    }
+
+    public int getPort()
+    {
+        return _info.getPort();
+    }
+
+    public String getName()
+    {
+        // If there is more than one service on the network, it will
+        // have a number at the end, but will appear as the following:
+        //   "ProtectBabyMonitor\\032(number)
+        // Replace \\032 with a ""
+        return _info.getServiceName().replace("\\\\032", " ");
+    }
+
+    @Override
+    public String toString()
+    {
+        return getName();
     }
 }
