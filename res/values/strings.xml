@@ -24,4 +24,9 @@
     <string name="portTitle">Port:</string>
     <string name="addressDescription">Address and port that parent must pair to</string>
     <string name="wifiNotConnected">Not connected to a Wi-Fi network</string>
+    <string name="parentPairInstructions">Enter the IP Address and port of a child and click Connect, or choose a child from the list below</string>
+    <string name="connect">Connect</string>
+    <string name="exampleAddress">192.168.1.2</string>
+    <string name="examplePort">10000</string>
+    <string name="invalidPort">Either no port was entered or it is invalid</string>
 </resources>
