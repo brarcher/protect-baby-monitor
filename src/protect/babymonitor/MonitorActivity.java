@@ -65,6 +65,7 @@ public class MonitorActivity extends Activity
                 frequency, channelConfiguration,
                 audioEncoding, bufferSize);
 
+        final int byteBufferSize = bufferSize*2;
         byte[] buffer = new byte[bufferSize*2];
 
         try
@@ -73,7 +74,7 @@ public class MonitorActivity extends Activity
 
             OutputStream out = socket.getOutputStream();
 
-            socket.setSendBufferSize(bufferSize);
+            socket.setSendBufferSize(byteBufferSize);
             Log.d(TAG, "Socket send buffer size: " + socket.getSendBufferSize());
 
             while (socket.isConnected() && Thread.currentThread().isInterrupted() == false)
