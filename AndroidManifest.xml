@@ -9,6 +9,7 @@
         android:targetSdkVersion="17" />
     <uses-permission android:required="true" android:name="android.permission.INTERNET"/>
     <uses-permission android:required="true" android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:required="true" android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
         android:allowBackup="true"

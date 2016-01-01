@@ -20,5 +20,8 @@
     <string name="connectedTo">Connected To:</string>
     <string name="disconnected">Disconnected</string>
     <string name="listening">Listening...</string>
-
+    <string name="addressTitle">Address:</string>
+    <string name="portTitle">Port:</string>
+    <string name="addressDescription">Address and port that parent must pair to</string>
+    <string name="wifiNotConnected">Not connected to a Wi-Fi network</string>
 </resources>
