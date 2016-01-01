@@ -1,0 +1,83 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="protect.babymonitor.MonitorActivity" >
+
+    <TextView
+        android:id="@+id/parentDeviceTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/parentDevice"
+        android:textSize="25sp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="15dip" />
+
+    <TextView
+        android:id="@+id/enterAddressInstructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enterAddressInstructions" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="15dip" />
+
+    <TextView
+        android:id="@+id/ipAddressTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="@string/addressTitle" />
+
+    <EditText
+        android:id="@+id/ipAddressField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/exampleAddress"
+        android:inputType="textUri"
+        android:textSize="20sp"
+        android:nextFocusForward="@+id/portField" >
+
+    </EditText>
+
+    <TextView
+        android:id="@+id/portTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="@string/portTitle" />
+
+    <EditText
+        android:id="@+id/portField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:ems="10"
+        android:inputType="number"
+        android:maxLength="5"
+        android:hint="@string/examplePort"
+        android:nextFocusForward="@+id/connectViaAddressButton"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="15dip" />
+
+    <Button
+        android:id="@+id/connectViaAddressButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/connect" />
+
+</LinearLayout>
