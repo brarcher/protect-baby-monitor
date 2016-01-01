@@ -66,7 +66,7 @@ public class MonitorActivity extends Activity
                 audioEncoding, bufferSize);
 
         final int byteBufferSize = bufferSize*2;
-        final byte[] buffer = new byte[bufferSize*2];
+        final byte[] buffer = new byte[byteBufferSize];
 
         try
         {

@@ -47,6 +47,7 @@ public class ListenActivity extends Activity
         final int channelConfiguration = AudioFormat.CHANNEL_OUT_MONO;
         final int audioEncoding = AudioFormat.ENCODING_PCM_16BIT;
         final int bufferSize = AudioTrack.getMinBufferSize(frequency, channelConfiguration, audioEncoding);
+        final int byteBufferSize = bufferSize*2;
 
         final AudioTrack audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC,
                 frequency,
@@ -64,7 +65,7 @@ public class ListenActivity extends Activity
 
         try
         {
-            final byte [] buffer = new byte[bufferSize*2];
+            final byte [] buffer = new byte[byteBufferSize];
 
             while(socket.isConnected() && read != -1 && Thread.currentThread().isInterrupted() == false)
             {
