@@ -206,8 +206,13 @@ class ServiceInfoWrapper
         // If there is more than one service on the network, it will
         // have a number at the end, but will appear as the following:
         //   "ProtectBabyMonitor\\032(number)
-        // Replace \\032 with a ""
-        return _info.getServiceName().replace("\\\\032", " ");
+        // or
+        //   "ProtectBabyMonitor\032(number)
+        // Replace \\032 and \032 with a " "
+        String serviceName = _info.getServiceName();
+        serviceName = serviceName.replace("\\\\032", " ");
+        serviceName = serviceName.replace("\\032", " ");
+        return serviceName;
     }
 
     @Override
