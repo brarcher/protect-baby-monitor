@@ -20,9 +20,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.Arrays;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 import android.app.Activity;
 import android.media.AudioFormat;
@@ -58,42 +55,32 @@ public class ListenActivity extends Activity
                 bufferSize,
                 AudioTrack.MODE_STREAM);
 
-        final BlockingQueue<byte[]> queue = new LinkedBlockingQueue<byte[]>(1 /*max samples queued*/);
-
-        AudioPlayer audioPlayer = new AudioPlayer(audioTrack, queue);
-        Thread playThread = new Thread(audioPlayer);
-        playThread.start();
-
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         InputStream is = socket.getInputStream();
         int read = 0;
 
-        while(socket.isConnected() && read != -1 && Thread.currentThread().isInterrupted() == false)
+        audioTrack.play();
+
+        try
         {
             byte [] buffer = new byte[bufferSize*2];
-            read = is.read(buffer);
 
-            if(read > 0)
+            while(socket.isConnected() && read != -1 && Thread.currentThread().isInterrupted() == false)
             {
-                if(read < buffer.length)
-                {
-                    buffer = Arrays.copyOf(buffer, read);
-                }
+                read = is.read(buffer);
 
-                try
+                if(read > 0)
                 {
-                    queue.add(buffer);
-                }
-                catch(IllegalStateException e)
-                {
-                    Log.i(TAG, "Buffer full, dropping data");
+                    audioTrack.write(buffer, 0, read);
                 }
             }
         }
-
-        playThread.interrupt();
-        socket.close();
+        finally
+        {
+            audioTrack.stop();
+            socket.close();
+        }
     }
 
     @Override
