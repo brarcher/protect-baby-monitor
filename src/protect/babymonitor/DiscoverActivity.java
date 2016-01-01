@@ -50,6 +50,37 @@ public class DiscoverActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discover);
 
+        final Button discoverChildButton = (Button) findViewById(R.id.discoverChildButton);
+        discoverChildButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                loadDiscoveryViaMdns();
+            }
+        });
+
+        final Button enterChildAddressButton = (Button) findViewById(R.id.enterChildAddressButton);
+        enterChildAddressButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                loadDiscoveryViaAddress();
+            }
+        });
+    }
+
+    private void loadDiscoveryViaMdns()
+    {
+        setContentView(R.layout.activity_discover_mdns);
+        startServiceDiscovery("_babymonitor._tcp.");
+    }
+
+    private void loadDiscoveryViaAddress()
+    {
+        setContentView(R.layout.activity_discover_address);
+
         final Button connectButton = (Button) findViewById(R.id.connectViaAddressButton);
         connectButton.setOnClickListener(new View.OnClickListener()
         {
@@ -64,19 +95,27 @@ public class DiscoverActivity extends Activity
                 final String addressString = addressField.getText().toString();
                 final String portString = portField.getText().toString();
 
+                if(addressString.length() == 0)
+                {
+                    Toast.makeText(DiscoverActivity.this, R.string.invalidAddress, Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                int port = 0;
+
                 try
                 {
-                    final int port = Integer.parseInt(portString);
-                    connectToChild(addressString, port, addressString);
+                    port = Integer.parseInt(portString);
                 }
                 catch(NumberFormatException e)
                 {
                     Toast.makeText(DiscoverActivity.this, R.string.invalidPort, Toast.LENGTH_LONG).show();
+                    return;
                 }
+
+                connectToChild(addressString, port, addressString);
             }
         });
-
-        startServiceDiscovery("_babymonitor._tcp.");
     }
 
     @Override

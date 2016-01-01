@@ -22,78 +22,38 @@
         android:layout_width="match_parent"
         android:layout_height="15dip" />
 
-    <TextView
-        android:id="@+id/parentPairInstructions"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/discoverChildButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/parentPairInstructions" />
+        android:text="@string/discoverChild"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/discoverChildDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/discoverChildDescription"
+        android:textSize="14sp" />
 
     <Space
-        android:layout_width="match_parent"
-        android:layout_height="15dip" />
-
-    <TextView
-        android:id="@+id/ipAddressTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="@string/addressTitle" />
-
-    <EditText
-        android:id="@+id/ipAddressField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/exampleAddress"
-        android:inputType="textUri"
-        android:textSize="20sp"
-        android:nextFocusForward="@+id/portField" >
-
-    </EditText>
-
-    <TextView
-        android:id="@+id/portTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="@string/portTitle" />
-
-    <EditText
-        android:id="@+id/portField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:ems="10"
-        android:inputType="number"
-        android:maxLength="5"
-        android:hint="@string/examplePort"
-        android:nextFocusForward="@+id/connectViaAddressButton"/>
+       android:layout_width="match_parent"
+       android:layout_height="15dip" />
 
     <Button
-        android:id="@+id/connectViaAddressButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/connect" />
-
-    <Space
+        android:id="@+id/enterChildAddressButton"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="match_parent"
-        android:layout_height="15dip" />
+        android:layout_height="wrap_content"
+        android:text="@string/enterChildAddress"
+        android:textSize="17sp" />
 
     <TextView
-        android:id="@+id/selectChildDeviceTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/selectChildDevice"
-        android:textSize="20sp" />
-
-    <ListView
-        android:id="@+id/ServiceTable"
-        android:scrollbars="vertical"
+        android:id="@+id/enterChildAddressDescription"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.32"
-        android:padding="10dp" >
-    </ListView>
+        android:layout_height="wrap_content"
+        android:text="@string/enterChildAddressDescription"
+        android:textSize="14sp" />
 
 </LinearLayout>
