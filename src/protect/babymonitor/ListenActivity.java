@@ -39,14 +39,14 @@ public class ListenActivity extends Activity
     String _name;
 
     Thread _listenThread;
-    private void streamAudio(Socket socket) throws IllegalArgumentException, IllegalStateException, IOException
+    private void streamAudio(final Socket socket) throws IllegalArgumentException, IllegalStateException, IOException
     {
         Log.i(TAG, "Setting up stream");
 
-        int frequency = 11025;
-        int channelConfiguration = AudioFormat.CHANNEL_OUT_MONO;
-        int audioEncoding = AudioFormat.ENCODING_PCM_16BIT;
-        int bufferSize = AudioTrack.getMinBufferSize(frequency, channelConfiguration, audioEncoding);
+        final int frequency = 11025;
+        final int channelConfiguration = AudioFormat.CHANNEL_OUT_MONO;
+        final int audioEncoding = AudioFormat.ENCODING_PCM_16BIT;
+        final int bufferSize = AudioTrack.getMinBufferSize(frequency, channelConfiguration, audioEncoding);
 
         final AudioTrack audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC,
                 frequency,
@@ -57,14 +57,14 @@ public class ListenActivity extends Activity
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
-        InputStream is = socket.getInputStream();
+        final InputStream is = socket.getInputStream();
         int read = 0;
 
         audioTrack.play();
 
         try
         {
-            byte [] buffer = new byte[bufferSize*2];
+            final byte [] buffer = new byte[bufferSize*2];
 
             while(socket.isConnected() && read != -1 && Thread.currentThread().isInterrupted() == false)
             {
@@ -88,7 +88,7 @@ public class ListenActivity extends Activity
     {
         super.onCreate(savedInstanceState);
 
-        Bundle b = getIntent().getExtras();
+        final Bundle b = getIntent().getExtras();
         _address = b.getString("address");
         _port = b.getInt("port");
         _name = b.getString("name");
@@ -115,7 +115,7 @@ public class ListenActivity extends Activity
             {
                 try
                 {
-                    Socket socket = new Socket(_address, _port);
+                    final Socket socket = new Socket(_address, _port);
                     streamAudio(socket);
                 }
                 catch (UnknownHostException e)

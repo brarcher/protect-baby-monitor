@@ -82,9 +82,9 @@ public class DiscoverActivity extends Activity
             public void onItemClick(AdapterView<?> parent, View view,
                     int position, long id)
             {
-                ServiceInfoWrapper info = (ServiceInfoWrapper) parent.getItemAtPosition(position);
-                Intent i = new Intent(getApplicationContext(), ListenActivity.class);
-                Bundle b = new Bundle();
+                final ServiceInfoWrapper info = (ServiceInfoWrapper) parent.getItemAtPosition(position);
+                final Intent i = new Intent(getApplicationContext(), ListenActivity.class);
+                final Bundle b = new Bundle();
                 b.putString("address", info.getAddress());
                 b.putInt("port", info.getPort());
                 b.putString("name", info.getName());
