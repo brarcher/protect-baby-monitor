@@ -56,29 +56,30 @@ public class MonitorActivity extends Activity
             }
         });
 
-        int frequency = 11025;
-        int channelConfiguration = AudioFormat.CHANNEL_IN_MONO;
-        int audioEncoding = AudioFormat.ENCODING_PCM_16BIT;
+        final int frequency = 11025;
+        final int channelConfiguration = AudioFormat.CHANNEL_IN_MONO;
+        final int audioEncoding = AudioFormat.ENCODING_PCM_16BIT;
 
-        int bufferSize = AudioRecord.getMinBufferSize(frequency, channelConfiguration, audioEncoding);
-        AudioRecord audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC,
+        final int bufferSize = AudioRecord.getMinBufferSize(frequency, channelConfiguration, audioEncoding);
+        final AudioRecord audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC,
                 frequency, channelConfiguration,
                 audioEncoding, bufferSize);
 
-        byte[] buffer = new byte[bufferSize*2];
+        final int byteBufferSize = bufferSize*2;
+        final byte[] buffer = new byte[byteBufferSize];
 
         try
         {
             audioRecord.startRecording();
 
-            OutputStream out = socket.getOutputStream();
+            final OutputStream out = socket.getOutputStream();
 
-            socket.setSendBufferSize(bufferSize);
+            socket.setSendBufferSize(byteBufferSize);
             Log.d(TAG, "Socket send buffer size: " + socket.getSendBufferSize());
 
             while (socket.isConnected() && Thread.currentThread().isInterrupted() == false)
             {
-                int read = audioRecord.read(buffer, 0, bufferSize);
+                final int read = audioRecord.read(buffer, 0, bufferSize);
                 out.write(buffer, 0, read);
             }
         }
@@ -113,7 +114,7 @@ public class MonitorActivity extends Activity
                         serverSocket = new ServerSocket(0);
 
                         // Store the chosen port.
-                        int localPort = serverSocket.getLocalPort();
+                        final int localPort = serverSocket.getLocalPort();
 
                         // Register the service so that parent devices can
                         // locate the child device
@@ -201,9 +202,9 @@ public class MonitorActivity extends Activity
         return super.onOptionsItemSelected(item);
     }
 
-    private void registerService(int port)
+    private void registerService(final int port)
     {
-        NsdServiceInfo serviceInfo  = new NsdServiceInfo();
+        final NsdServiceInfo serviceInfo  = new NsdServiceInfo();
         serviceInfo.setServiceName("ProtectBabyMonitor");
         serviceInfo.setServiceType("_babymonitor._tcp.");
         serviceInfo.setPort(port);
