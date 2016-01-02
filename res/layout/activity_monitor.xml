@@ -48,6 +48,44 @@
        android:layout_height="15dip" />
 
     <TextView
+        android:id="@+id/addressTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/addressTitle"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/portTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/portTitle"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/port"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/loading"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/addressDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/addressDescription" />
+
+    <Space
+       android:layout_width="match_parent"
+       android:layout_height="15dip" />
+
+    <TextView
         android:id="@+id/textStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

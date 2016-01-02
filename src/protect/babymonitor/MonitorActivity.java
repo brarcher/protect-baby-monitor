@@ -28,7 +28,10 @@ import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.net.nsd.NsdManager;
 import android.net.nsd.NsdServiceInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.text.format.Formatter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -163,6 +166,29 @@ public class MonitorActivity extends Activity
             }
         });
         _serviceThread.start();
+
+        MonitorActivity.this.runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                final TextView addressText = (TextView) findViewById(R.id.address);
+
+                final WifiManager wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
+                final WifiInfo info = wifiManager.getConnectionInfo();
+                final int address = info.getIpAddress();
+                if(address != 0)
+                {
+                    @SuppressWarnings("deprecation")
+                    final String ipAddress = Formatter.formatIpAddress(address);
+                    addressText.setText(ipAddress);
+                }
+                else
+                {
+                    addressText.setText(R.string.wifiNotConnected);
+                }
+            }
+        });
     }
 
     @Override
@@ -212,11 +238,11 @@ public class MonitorActivity extends Activity
         _registrationListener = new NsdManager.RegistrationListener()
         {
             @Override
-            public void onServiceRegistered(NsdServiceInfo NsdServiceInfo) {
+            public void onServiceRegistered(NsdServiceInfo nsdServiceInfo) {
                 // Save the service name.  Android may have changed it in order to
                 // resolve a conflict, so update the name you initially requested
                 // with the name Android actually used.
-                final String serviceName = NsdServiceInfo.getServiceName();
+                final String serviceName = nsdServiceInfo.getServiceName();
 
                 Log.i(TAG, "Service name: " + serviceName);
 
@@ -229,6 +255,9 @@ public class MonitorActivity extends Activity
 
                         final TextView serviceText = (TextView) findViewById(R.id.textService);
                         serviceText.setText(serviceName);
+
+                        final TextView portText = (TextView) findViewById(R.id.port);
+                        portText.setText(Integer.toString(port));
                     }
                 });
             }

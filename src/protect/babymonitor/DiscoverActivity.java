@@ -27,7 +27,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class DiscoverActivity extends Activity
 {
@@ -47,7 +50,72 @@ public class DiscoverActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discover);
 
+        final Button discoverChildButton = (Button) findViewById(R.id.discoverChildButton);
+        discoverChildButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                loadDiscoveryViaMdns();
+            }
+        });
+
+        final Button enterChildAddressButton = (Button) findViewById(R.id.enterChildAddressButton);
+        enterChildAddressButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                loadDiscoveryViaAddress();
+            }
+        });
+    }
+
+    private void loadDiscoveryViaMdns()
+    {
+        setContentView(R.layout.activity_discover_mdns);
         startServiceDiscovery("_babymonitor._tcp.");
+    }
+
+    private void loadDiscoveryViaAddress()
+    {
+        setContentView(R.layout.activity_discover_address);
+
+        final Button connectButton = (Button) findViewById(R.id.connectViaAddressButton);
+        connectButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Log.i(TAG, "Connecting to child device via address");
+
+                final EditText addressField = (EditText) findViewById(R.id.ipAddressField);
+                final EditText portField = (EditText) findViewById(R.id.portField);
+
+                final String addressString = addressField.getText().toString();
+                final String portString = portField.getText().toString();
+
+                if(addressString.length() == 0)
+                {
+                    Toast.makeText(DiscoverActivity.this, R.string.invalidAddress, Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                int port = 0;
+
+                try
+                {
+                    port = Integer.parseInt(portString);
+                }
+                catch(NumberFormatException e)
+                {
+                    Toast.makeText(DiscoverActivity.this, R.string.invalidPort, Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                connectToChild(addressString, port, addressString);
+            }
+        });
     }
 
     @Override
@@ -83,13 +151,7 @@ public class DiscoverActivity extends Activity
                     int position, long id)
             {
                 final ServiceInfoWrapper info = (ServiceInfoWrapper) parent.getItemAtPosition(position);
-                final Intent i = new Intent(getApplicationContext(), ListenActivity.class);
-                final Bundle b = new Bundle();
-                b.putString("address", info.getAddress());
-                b.putInt("port", info.getPort());
-                b.putString("name", info.getName());
-                i.putExtras(b);
-                startActivity(i);
+                connectToChild(info.getAddress(), info.getPort(), info.getName());
             }
         });
 
@@ -180,6 +242,24 @@ public class DiscoverActivity extends Activity
 
         nsdManager.discoverServices(
                 serviceType, NsdManager.PROTOCOL_DNS_SD, _discoveryListener);
+    }
+
+    /**
+     * Launch the ListenActivity to connect to the given child device
+     *
+     * @param address
+     * @param port
+     * @param name
+     */
+    private void connectToChild(final String address, final int port, final String name)
+    {
+        final Intent i = new Intent(getApplicationContext(), ListenActivity.class);
+        final Bundle b = new Bundle();
+        b.putString("address", address);
+        b.putInt("port", port);
+        b.putString("name", name);
+        i.putExtras(b);
+        startActivity(i);
     }
 }
 

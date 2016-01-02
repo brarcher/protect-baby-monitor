@@ -20,5 +20,18 @@
     <string name="connectedTo">Connected To:</string>
     <string name="disconnected">Disconnected</string>
     <string name="listening">Listening...</string>
-
+    <string name="addressTitle">Address:</string>
+    <string name="portTitle">Port:</string>
+    <string name="addressDescription">Address and port that parent must pair to</string>
+    <string name="wifiNotConnected">Not connected to a Wi-Fi network</string>
+    <string name="enterAddressInstructions">Enter the IP Address and port of a child and click Connect</string>
+    <string name="connect">Connect</string>
+    <string name="exampleAddress">192.168.1.2</string>
+    <string name="examplePort">10000</string>
+    <string name="invalidPort">Either no port was entered or it is invalid</string>
+    <string name="invalidAddress">The address field needs to be filled out</string>
+    <string name="discoverChild">Discover Child on Network</string>
+    <string name="discoverChildDescription">Select child from a list of discovered children on the network</string>
+    <string name="enterChildAddress">Select Child by Address</string>
+    <string name="enterChildAddressDescription">Enter the address and port of the child</string>
 </resources>

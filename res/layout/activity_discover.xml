@@ -22,20 +22,38 @@
         android:layout_width="match_parent"
         android:layout_height="15dip" />
 
-    <TextView
-        android:id="@+id/selectChildDeviceTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/selectChildDevice"
-        android:textSize="20sp" />
-
-    <ListView
-        android:id="@+id/ServiceTable"
-        android:scrollbars="vertical"
+    <Button
+        android:id="@+id/discoverChildButton"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.32"
-        android:padding="10dp" >
-    </ListView>
+        android:layout_height="wrap_content"
+        android:text="@string/discoverChild"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/discoverChildDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/discoverChildDescription"
+        android:textSize="14sp" />
+
+    <Space
+       android:layout_width="match_parent"
+       android:layout_height="15dip" />
+
+    <Button
+        android:id="@+id/enterChildAddressButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/enterChildAddress"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/enterChildAddressDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/enterChildAddressDescription"
+        android:textSize="14sp" />
 
 </LinearLayout>
