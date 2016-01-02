@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">安全ベビー モニター</string>
+    <string name="action_settings">設定</string>
+    <string name="useAsParentDevice">親機として使用する</string>
+    <string name="useAsChildDevice">子機として使用する</string>
+    <string name="childDescription">端末をベビーの横に置くと、音声が親機に送られます</string>
+    <string name="parentDescription">子機とペアにして、受信した音声を再生します</string>
+    <string name="childDevice">子機</string>
+    <string name="serviceTitle">サービス:</string>
+    <string name="serviceDescription">親機がペアにするサービスの名前</string>
+    <string name="loading">読み込み中...</string>
+    <string name="stopped">停止しました</string>
+    <string name="streaming">ストリーム中...</string>
+    <string name="waitingForParent">親機を待機中...</string>
+    <string name="parentDevice">親機</string>
+    <string name="selectChildDevice">子機を選択:</string>
+    <string name="status">ステータス:</string>
+    <string name="connectedTo">接続しました:</string>
+    <string name="disconnected">切断しました</string>
+    <string name="listening">リスニング中...</string>
+    <string name="addressTitle">アドレス:</string>
+    <string name="portTitle">ポート:</string>
+    <string name="addressDescription">親機がペアにする先のアドレスとポート</string>
+    <string name="wifiNotConnected">Wi-Fi ネットワークに接続されていません</string>
+    <string name="enterAddressInstructions">子機の IP アドレスとポートを入力して、接続をクリックしてください</string>
+    <string name="connect">接続</string>
+    <string name="exampleAddress">192.168.1.2</string>
+    <string name="examplePort">10000</string>
+    <string name="invalidPort">ポートが入力されていないか正しくありません</string>
+    <string name="invalidAddress">アドレスフィールドを入力してください</string>
+    <string name="discoverChild">ネットワークで子機を探索</string>
+    <string name="discoverChildDescription">ネットワークで検出した子機を選択します</string>
+    <string name="enterChildAddress">子機をアドレスで選択</string>
+    <string name="enterChildAddressDescription">子機のアドレスとポートを入力します</string>
+</resources>
