@@ -20,5 +20,18 @@
     <string name="connectedTo">接続しました:</string>
     <string name="disconnected">切断しました</string>
     <string name="listening">リスニング中...</string>
-
+    <string name="addressTitle">アドレス:</string>
+    <string name="portTitle">ポート:</string>
+    <string name="addressDescription">親機がペアにする先のアドレスとポート</string>
+    <string name="wifiNotConnected">Wi-Fi ネットワークに接続されていません</string>
+    <string name="enterAddressInstructions">子機の IP アドレスとポートを入力して、接続をクリックしてください</string>
+    <string name="connect">接続</string>
+    <string name="exampleAddress">192.168.1.2</string>
+    <string name="examplePort">10000</string>
+    <string name="invalidPort">ポートが入力されていないか正しくありません</string>
+    <string name="invalidAddress">アドレスフィールドを入力してください</string>
+    <string name="discoverChild">ネットワークで子機を探索</string>
+    <string name="discoverChildDescription">ネットワークで検出した子機を選択します</string>
+    <string name="enterChildAddress">子機をアドレスで選択</string>
+    <string name="enterChildAddressDescription">子機のアドレスとポートを入力します</string>
 </resources>
