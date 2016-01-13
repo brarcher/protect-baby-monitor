@@ -32,7 +32,7 @@ proposed changed.
 
 # Thanks
 
-App icon originals from [WPZOOM](http://www.wpzoom.com/wpzoom/new-freebie-wpzoom-developer-icon-set-154-free-icons)
+App icon originals from [Icons4Android](http://www.icons4android.com/)
 and formatted using [Android Asset Studio](https://romannurik.github.io/AndroidAssetStudio/index.html).
 
 Audio file originals from [freesound](https://freesound.org).
