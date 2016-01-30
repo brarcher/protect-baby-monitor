@@ -1,7 +1,9 @@
-# protect-baby-monitor
+# Protect Baby Monitor
 An Open Source Baby Monitor for Android
 
 [![Build Status](https://travis-ci.org/brarcher/protect-baby-monitor.svg?branch=master)](https://travis-ci.org/brarcher/protect-baby-monitor)
+
+[![F-Droid](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Get_it_on_F-Droid.svg/160px-Get_it_on_F-Droid.svg.png)](https://f-droid.org/repository/browse/?fdid=protect.babymonitor "Protect Baby Monitor on F-Droid")
 
 _Protect Baby Monitor_ allows two Android devices to act as a baby monitor. The first device,
 left in the room with the baby, will advertise itself on the network and stream audio
