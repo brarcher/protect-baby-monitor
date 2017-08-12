@@ -31,6 +31,9 @@ including:
 If there is any interest in improving this open source baby monitor, kindly submit a pull request with
 proposed changed.
 
+# Translating
+
+If you are interested in translating this application to another language, create a pull request with changes or find the project listing on  [Transifex](https://www.transifex.com/na-243/protect-baby-monitor/).
 
 # Thanks
 
