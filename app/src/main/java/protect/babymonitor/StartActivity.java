@@ -25,7 +25,7 @@ import android.widget.Button;
 
 public class StartActivity extends Activity
 {
-    final String TAG = "BabyMonitor";
+    static final String TAG = "BabyMonitor";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

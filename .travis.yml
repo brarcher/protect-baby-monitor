@@ -9,7 +9,7 @@ install:
 - echo y | android update sdk -u -a -t extra-google-m2repository
 - echo y | android update sdk -u -a -t extra-android-m2repository
 
-script: ./gradlew assembleRelease testReleaseUnitTest lintRelease
+script: ./gradlew assembleRelease testReleaseUnitTest lintRelease findbugs
 
 after_failure:
 - cat app/build/reports/findbugs/findbugs.html
