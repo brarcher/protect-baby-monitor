@@ -10,8 +10,7 @@ left in the room with the baby, will advertise itself on the network and stream 
 to a connected client. The second device, with the parent, will connect to the monitoring
 device and receive an audio stream.
 
-Currently _Protect Baby Monitor_ builds against Android SDK 17. It may work for
-lower SDK versions, but this has not been tested.
+_Protect Baby Monitor_ works on Android 4.1 (Jelly Bean) and newer, i.e. Android SDK 16.
 
 The current version of _Protect Baby Monitor_ is rudimentary at best. It is capable
 of successfully advertising itself on the network, allows clients to connect,
