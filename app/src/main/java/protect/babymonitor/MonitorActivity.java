@@ -174,7 +174,7 @@ public class MonitorActivity extends Activity
             {
                 final TextView addressText = (TextView) findViewById(R.id.address);
 
-                final WifiManager wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
+                final WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
                 final WifiInfo info = wifiManager.getConnectionInfo();
                 final int address = info.getIpAddress();
                 if(address != 0)
