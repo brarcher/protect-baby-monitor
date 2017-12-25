@@ -174,7 +174,9 @@ public class MonitorActivity extends Activity
             {
                 final TextView addressText = (TextView) findViewById(R.id.address);
 
-                final WifiManager wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
+                // Use the application context to get WifiManager, to avoid leak before Android 5.1
+                final WifiManager wifiManager =
+                        (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
                 final WifiInfo info = wifiManager.getConnectionInfo();
                 final int address = info.getIpAddress();
                 if(address != 0)

@@ -22,6 +22,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import android.app.Activity;
+import android.content.Context;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
@@ -29,14 +30,19 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 
 public class ListenActivity extends Activity
 {
     final String TAG = "BabyMonitor";
+    // Sets an ID for the notification
+    final static int mNotificationId = 1;
 
     String _address;
     int _port;
     String _name;
+    NotificationManagerCompat _mNotifyMgr;
 
     Thread _listenThread;
     private void streamAudio(final Socket socket) throws IllegalArgumentException, IllegalStateException, IOException
@@ -93,6 +99,9 @@ public class ListenActivity extends Activity
         _address = b.getString("address");
         _port = b.getInt("port");
         _name = b.getString("name");
+        // Gets an instance of the NotificationManager service
+        _mNotifyMgr =
+                NotificationManagerCompat.from(this);
 
         setContentView(R.layout.activity_listen);
 
@@ -101,6 +110,15 @@ public class ListenActivity extends Activity
             @Override
             public void run()
             {
+                NotificationCompat.Builder mBuilder =
+                        new NotificationCompat.Builder(ListenActivity.this)
+                                .setSmallIcon(R.drawable.ic_launcher)
+                                .setContentTitle(getString(R.string.app_name))
+                                .setContentText(getString(R.string.listening));
+
+
+                _mNotifyMgr.notify(mNotificationId, mBuilder.build());
+
                 final TextView connectedText = (TextView) findViewById(R.id.connectedTo);
                 connectedText.setText(_name);
 
@@ -146,6 +164,12 @@ public class ListenActivity extends Activity
 
                             final TextView statusText = (TextView) findViewById(R.id.textStatus);
                             statusText.setText(R.string.disconnected);
+                            NotificationCompat.Builder mBuilder =
+                                    new NotificationCompat.Builder(ListenActivity.this)
+                                            .setSmallIcon(R.drawable.ic_launcher)
+                                            .setContentTitle(getString(R.string.app_name))
+                                            .setContentText(getString(R.string.disconnected));
+                            _mNotifyMgr.notify(mNotificationId, mBuilder.build());
                         }
                     });
                 }
