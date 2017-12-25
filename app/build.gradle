@@ -13,6 +13,8 @@ android {
         applicationId "protect.babymonitor"
         minSdkVersion 16
         targetSdkVersion 17
+        versionCode 3
+        versionName "0.3"
     }
 
     buildTypes {
