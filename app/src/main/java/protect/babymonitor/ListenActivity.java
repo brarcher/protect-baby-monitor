@@ -36,11 +36,12 @@ import android.support.v4.app.NotificationManagerCompat;
 public class ListenActivity extends Activity
 {
     final String TAG = "BabyMonitor";
+    // Sets an ID for the notification
+    final static int mNotificationId = 1;
 
     String _address;
     int _port;
     String _name;
-    Context _mParentContext = this;
     NotificationManagerCompat _mNotifyMgr;
 
     Thread _listenThread;
@@ -100,7 +101,7 @@ public class ListenActivity extends Activity
         _name = b.getString("name");
         // Gets an instance of the NotificationManager service
         _mNotifyMgr =
-                NotificationManagerCompat.from(_mParentContext);
+                NotificationManagerCompat.from(this);
 
         setContentView(R.layout.activity_listen);
 
@@ -110,14 +111,12 @@ public class ListenActivity extends Activity
             public void run()
             {
                 NotificationCompat.Builder mBuilder =
-                        new NotificationCompat.Builder(_mParentContext)
+                        new NotificationCompat.Builder(ListenActivity.this)
                                 .setSmallIcon(R.drawable.ic_launcher)
-                                .setContentTitle("Baby Monitor Listener")
-                                .setContentText("Listener is running");
+                                .setContentTitle(getString(R.string.app_name))
+                                .setContentText(getString(R.string.listening));
 
 
-                // Sets an ID for the notification
-                int mNotificationId = 1;
                 _mNotifyMgr.notify(mNotificationId, mBuilder.build());
 
                 final TextView connectedText = (TextView) findViewById(R.id.connectedTo);
@@ -166,12 +165,10 @@ public class ListenActivity extends Activity
                             final TextView statusText = (TextView) findViewById(R.id.textStatus);
                             statusText.setText(R.string.disconnected);
                             NotificationCompat.Builder mBuilder =
-                                    new NotificationCompat.Builder(_mParentContext)
+                                    new NotificationCompat.Builder(ListenActivity.this)
                                             .setSmallIcon(R.drawable.ic_launcher)
-                                            .setContentTitle("Baby Monitor Listener")
-                                            .setContentText("Disconnected!");
-                            // Sets an ID for the notification
-                            int mNotificationId = 1;
+                                            .setContentTitle(getString(R.string.app_name))
+                                            .setContentText(getString(R.string.disconnected));
                             _mNotifyMgr.notify(mNotificationId, mBuilder.build());
                         }
                     });
