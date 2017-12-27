@@ -112,6 +112,7 @@ public class ListenActivity extends Activity
             {
                 NotificationCompat.Builder mBuilder =
                         new NotificationCompat.Builder(ListenActivity.this)
+                                .setOngoing(true)
                                 .setSmallIcon(R.drawable.listening_notification)
                                 .setContentTitle(getString(R.string.app_name))
                                 .setContentText(getString(R.string.listening));
@@ -166,6 +167,7 @@ public class ListenActivity extends Activity
                             statusText.setText(R.string.disconnected);
                             NotificationCompat.Builder mBuilder =
                                     new NotificationCompat.Builder(ListenActivity.this)
+                                            .setOngoing(false)
                                             .setSmallIcon(R.drawable.listening_notification)
                                             .setContentTitle(getString(R.string.app_name))
                                             .setContentText(getString(R.string.disconnected));
