@@ -167,30 +167,24 @@ public class MonitorActivity extends Activity
         });
         _serviceThread.start();
 
-        MonitorActivity.this.runOnUiThread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                final TextView addressText = (TextView) findViewById(R.id.address);
+        final TextView addressText = (TextView) findViewById(R.id.address);
 
-                // Use the application context to get WifiManager, to avoid leak before Android 5.1
-                final WifiManager wifiManager =
-                        (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
-                final WifiInfo info = wifiManager.getConnectionInfo();
-                final int address = info.getIpAddress();
-                if(address != 0)
-                {
-                    @SuppressWarnings("deprecation")
-                    final String ipAddress = Formatter.formatIpAddress(address);
-                    addressText.setText(ipAddress);
-                }
-                else
-                {
-                    addressText.setText(R.string.wifiNotConnected);
-                }
-            }
-        });
+        // Use the application context to get WifiManager, to avoid leak before Android 5.1
+        final WifiManager wifiManager =
+                (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+        final WifiInfo info = wifiManager.getConnectionInfo();
+        final int address = info.getIpAddress();
+        if(address != 0)
+        {
+            @SuppressWarnings("deprecation")
+            final String ipAddress = Formatter.formatIpAddress(address);
+            addressText.setText(ipAddress);
+        }
+        else
+        {
+            addressText.setText(R.string.wifiNotConnected);
+        }
+
     }
 
     @Override

@@ -105,27 +105,21 @@ public class ListenActivity extends Activity
 
         setContentView(R.layout.activity_listen);
 
-        ListenActivity.this.runOnUiThread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                NotificationCompat.Builder mBuilder =
-                        new NotificationCompat.Builder(ListenActivity.this)
-                                .setSmallIcon(R.drawable.ic_launcher)
-                                .setContentTitle(getString(R.string.app_name))
-                                .setContentText(getString(R.string.listening));
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(ListenActivity.this)
+                        .setOngoing(true)
+                        .setSmallIcon(R.drawable.listening_notification)
+                        .setContentTitle(getString(R.string.app_name))
+                        .setContentText(getString(R.string.listening));
 
+        _mNotifyMgr.notify(mNotificationId, mBuilder.build());
 
-                _mNotifyMgr.notify(mNotificationId, mBuilder.build());
+        final TextView connectedText = (TextView) findViewById(R.id.connectedTo);
+        connectedText.setText(_name);
 
-                final TextView connectedText = (TextView) findViewById(R.id.connectedTo);
-                connectedText.setText(_name);
+        final TextView statusText = (TextView) findViewById(R.id.textStatus);
+        statusText.setText(R.string.listening);
 
-                final TextView statusText = (TextView) findViewById(R.id.textStatus);
-                statusText.setText(R.string.listening);
-            }
-        });
 
         _listenThread = new Thread(new Runnable()
         {
@@ -166,7 +160,8 @@ public class ListenActivity extends Activity
                             statusText.setText(R.string.disconnected);
                             NotificationCompat.Builder mBuilder =
                                     new NotificationCompat.Builder(ListenActivity.this)
-                                            .setSmallIcon(R.drawable.ic_launcher)
+                                            .setOngoing(false)
+                                            .setSmallIcon(R.drawable.listening_notification)
                                             .setContentTitle(getString(R.string.app_name))
                                             .setContentText(getString(R.string.disconnected));
                             _mNotifyMgr.notify(mNotificationId, mBuilder.build());
