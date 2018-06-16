@@ -1,36 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Geschützte Baby Überwachung</string>
+
+    <string name="app_name">Protect Baby Monitor</string>
     <string name="action_settings">Einstellungen</string>
     <string name="useAsParentDevice">Als Eltern-Gerät benutzen</string>
     <string name="useAsChildDevice">Als Kind-Gerät benutzen</string>
-    <string name="childDescription">Gerät ist beim Kind platziert und sendet Audio zum Eltern-Gerät</string>
-    <string name="parentDescription">Gekoppelt mit Kind-Gerät und spielt empfangenes Audio.</string>
+    <string name="childDescription">Gerät ist beim Kind platziert und sendet Tonsignale zum Eltern-Gerät</string>
+    <string name="parentDescription">Gekoppelt mit Kind-Gerät und gibt empfangene Tonsignale wieder.</string>
     <string name="childDevice">Kind-Gerät</string>
-    <string name="serviceTitle">Dienst</string>
-    <string name="serviceDescription">Name des Diensten mit die Eltern koppeln müssen.</string>
+    <string name="serviceTitle">Dienst:</string>
+    <string name="serviceDescription">Name des Diensten, mit dem sich die Eltern verbinden müssen.</string>
     <string name="loading">Lade...</string>
     <string name="stopped">Angehalten</string>
     <string name="streaming">Streaming...</string>
     <string name="waitingForParent">Warte auf Eltern</string>
-    <string name="parentDevice">Eltern Gerät</string>
-    <string name="selectChildDevice">Wähle Kind Gerät</string>
+    <string name="parentDevice">Eltern-Gerät</string>
+    <string name="selectChildDevice">Wähle Kind-Gerät</string>
     <string name="status">Status:</string>
     <string name="connectedTo">Verbunden mit:</string>
     <string name="disconnected">Getrennt</string>
-    <string name="listening">lausche</string>
+    <string name="listening">Lausche...</string>
     <string name="addressTitle">Adresse:</string>
     <string name="portTitle">Port:</string>
-    <string name="addressDescription">Adresse und Port zum koppeln mit Eltern</string>
-    <string name="wifiNotConnected">Nicht mit W-LAN Netzwerk verbunden</string>
-    <string name="enterAddressInstructions">Gib die IP Adresse und den Port des Kind Gerätes ein und klick auf Verbinden</string>
-    <string name="connect">verbinden</string>
+    <string name="addressDescription">Adresse und Port zum Koppeln mit Eltern</string>
+    <string name="wifiNotConnected">Nicht mit WLAN-Netzwerk verbunden</string>
+    <string name="enterAddressInstructions">Gib die IP-Adresse und den Port des Kind-Gerätes ein und klicke auf Verbinden</string>
+    <string name="connect">Verbinden</string>
     <string name="exampleAddress">192.168.1.2</string>
     <string name="examplePort">10000</string>
     <string name="invalidPort">Entweder wurde kein Port eingegeben oder er ist ungültig</string>
-    <string name="invalidAddress">Das Adress Feld muss ausgefüllt sein</string>
+    <string name="invalidAddress">Das Adressfeld muss ausgefüllt sein</string>
     <string name="discoverChild">Suche Kind im Netzwerk</string>
-    <string name="discoverChildDescription">Wähle Kind ein Kind aus einer Liste der erkannten Kinder im Netzwerk</string>
+    <string name="discoverChildDescription">Wähle ein Kind aus einer Liste der erkannten Kinder im Netzwerk</string>
     <string name="enterChildAddress">Wähle Kind durch Adresse</string>
     <string name="enterChildAddressDescription">Gib die Adresse und den Port des Kind ein</string>
 </resources>
