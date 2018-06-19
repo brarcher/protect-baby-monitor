@@ -1,4 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    </resources>
+    <string name="app_name">Bescherm-babymonitor</string>
+    <string name="action_settings">Instellingen</string>
+    <string name="useAsParentDevice">Gebruiken als ouderapparaat</string>
+    <string name="useAsChildDevice">Gebruiken als kindapparaat</string>
+    <string name="childDescription">Het apparaat wordt bij de baby geplaatst en verstuurt audio naar een gekoppeld ouderapparaat.</string>
+    <string name="parentDescription">Verbindt met kindapparaat en speelt ontvangen audio af</string>
+    <string name="childDevice">Kindapparaat</string>
+    <string name="serviceTitle">Dienst:</string>
+    <string name="serviceDescription">Naam van de dienst waar de ouder mee moet verbinden</string>
+    <string name="loading">Bezig met laden...</string>
+    <string name="stopped">Gestopt</string>
+    <string name="streaming">Bezig met uitzenden...</string>
+    <string name="waitingForParent">Bezig met wachten op ouderapparaat...</string>
+    <string name="parentDevice">Ouderapparaat</string>
+    <string name="selectChildDevice">Selecteer kindapparaat:</string>
+    <string name="status">Status:</string>
+    <string name="connectedTo">Verbonden met:</string>
+    <string name="disconnected">Verbinding verbroken</string>
+    <string name="listening">Bezig met luisteren...</string>
+    <string name="addressTitle">Adres:</string>
+    <string name="portTitle">Poort:</string>
+    <string name="addressDescription">Adres en poort waar de ouder mee moet verbinden</string>
+    <string name="wifiNotConnected">Niet verbonden met een Wi-Fi-netwerk</string>
+    <string name="enterAddressInstructions">Voer het IP-adres en de poort van een kindapparaat in en druk op Verbinden</string>
+    <string name="connect">Verbinden</string>
+    <string name="exampleAddress">192.168.1.2</string>
+    <string name="examplePort">10000</string>
+    <string name="invalidPort">Er is geen of een ongeldig poortnummer ingevoerd</string>
+    <string name="invalidAddress">Het adresveld moet worden ingevuld</string>
+    <string name="discoverChild">Kindapparaat ontdekken op netwerk</string>
+    <string name="discoverChildDescription">Selecteer het kindapparaat uit een lijst van ontdekte apparaten op het netwerk</string>
+    <string name="enterChildAddress">Selecteer kindapparaat middels adres</string>
+    <string name="enterChildAddressDescription">Voer het adres en de poort in van een kindapparaat</string>
+</resources>
