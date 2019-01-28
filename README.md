@@ -32,7 +32,7 @@ proposed changed.
 
 # Translating
 
-If you are interested in translating this application to another language, create a pull request with changes or find the project listing on  [Transifex](https://www.transifex.com/na-243/protect-baby-monitor/).
+If you are interested in translating this application to another language, find the project listing on [Transifex](https://www.transifex.com/na-243/protect-baby-monitor/).
 
 # Thanks
 
