@@ -27,9 +27,6 @@ including:
 - [Dormi](https://play.google.com/store/apps/details?id=com.sleekbit.dormi)
 - [Baby Monitor](https://play.google.com/store/apps/details?id=dk.mvainformatics.android.babymonitor)
 
-If there is any interest in improving this open source baby monitor, kindly submit a pull request with
-proposed changed.
-
 # Translating
 
 If you are interested in translating this application to another language, find the project listing on [Transifex](https://www.transifex.com/na-243/protect-baby-monitor/).
@@ -40,3 +37,6 @@ App icon originals from [Icons4Android](http://www.icons4android.com/)
 and formatted using [Android Asset Studio](https://romannurik.github.io/AndroidAssetStudio/index.html).
 
 Audio file originals from [freesound](https://freesound.org).
+
+# Note from Developer
+The developer is currently on hiatus from the project. Questions and pull requests may not be looked at for some time. Apologies in advance.
