@@ -27,10 +27,6 @@ including:
 - [Dormi](https://play.google.com/store/apps/details?id=com.sleekbit.dormi)
 - [Baby Monitor](https://play.google.com/store/apps/details?id=dk.mvainformatics.android.babymonitor)
 
-# Translating
-
-If you are interested in translating this application to another language, find the project listing on [Transifex](https://www.transifex.com/na-243/protect-baby-monitor/).
-
 # Thanks
 
 App icon originals from [Icons4Android](http://www.icons4android.com/)
